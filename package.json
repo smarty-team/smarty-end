@@ -8,6 +8,9 @@
     "build": "tsc -P tsconfig.json && node ./dist/index.js",
     "tslint": "tslint --fix -p tsconfig.json"
   },
+  "bin": {
+    "smarty": "./bin/smarty"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,12 +20,15 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "commander": "^3.0.1",
+    "download-git-repo": "^2.0.0",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-xtime": "^1.0.0",
     "mysql2": "^1.6.5",
+    "ora": "^3.4.0",
     "parameter": "^3.6.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.8.12",
