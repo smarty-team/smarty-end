@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  backend:
+      container_name: app-pm2
+      #构建容器
+      build: .
+      ports:
+        - "3000:3000"
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+  mongo-express:
+    image: mongo-express
+    restart: always 
+    ports:
+      - 8081:8081
