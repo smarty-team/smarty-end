@@ -1,5 +1,6 @@
 import * as Koa from 'koa'
-import { get, post, middlewares, querystring } from '../utils/decors'
+import { get, post, middlewares } from '../framework/decors'
+import {querystring} from '../framework/validateRule'
 const users = [{ name: 'tom', age: 20 }]
 const api = {
     findByName(name) {
@@ -29,13 +30,13 @@ import model from '../model/user'
 // ])
 export default class User {
     @get('/users')
-    @querystring({
-        age: { type: 'int', required: false, max: 200, convertType: 'int' },
-    })
+    // @querystring({
+    //     age: { type: 'int', required: false, max: 200, convertType: 'int' },
+    // })
     public async list(ctx: Koa.Context) {
-        ctx.body = { ok: 1, data: users }
-        // const users = await model.findAll()
-        // ctx.body = { ok: 1, data: users };
+        // ctx.body = { ok: 1, data: users }
+        const users = await model.findAll()
+        ctx.body = { ok: 1, data: users };
     }
 
     @post('/users', {
