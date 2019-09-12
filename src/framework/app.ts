@@ -8,7 +8,7 @@ import { resolve } from 'path'
 import { Sequelize } from 'sequelize-typescript';
 import { db } from '../config/index'
 
-export default class Smarty  {
+export default class Smarty {
     app: Koa
     constructor() {
         this.app = new Koa()
@@ -18,13 +18,24 @@ export default class Smarty  {
                 strict: false
             })
         )
+
+        this.app.use(async (ctx, next) => {
+            try {
+                await next()
+            } catch (err) {
+                ctx.body = {
+                    code: 500, // 服务端自身的处理逻辑错误(包含框架错误500 及 自定义业务逻辑错误533开始 ) 客户端请求参数导致的错误(4xx开始)，设置不同的状态码
+                    error: err.message
+                }
+            }
+        })
         const sequelize = new Sequelize(
             Object.assign(db, { modelPaths: [`${__dirname}/../model`] })
         );
         // 数据库强制同步
-        sequelize['sync']({force:true})
+        sequelize['sync']({ force: true })
 
-        
+
         const router = load(resolve(__dirname, '../routes'));
         this.app.use(router.routes())
     }

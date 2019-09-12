@@ -8,7 +8,6 @@ const validateRule = paramPart => rule => {
             const p = new Parameter()
             const data = ctx[paramPart]
             const errors = p.validate(rule, data)
-            // console.log('error',errors)
             if (errors) throw new Error(JSON.stringify(errors))
             return oldValue.apply(null, arguments);
         }
