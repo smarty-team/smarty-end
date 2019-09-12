@@ -28,6 +28,8 @@ const decorate = (method: HTTPMethod, path: string, options: RouteOptions = {}, 
             }
 
             middlewares.push(target[property])
+
+            // url前缀
             const url = options.prefix ? options.prefix + path : path
             // router[method](url, target[property])
             router[method](url, ...middlewares)
