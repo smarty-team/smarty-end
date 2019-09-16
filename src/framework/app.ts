@@ -4,12 +4,15 @@ import * as serve from 'koa-static';
 import * as timing from 'koa-xtime';
 
 import { load } from '../framework/decors';
+import {  load as restful }  from '../framework/restful/index';
 import { resolve } from 'path'
 import { Sequelize } from 'sequelize-typescript';
 import { db } from '../config/index'
+import * as KoaRouter from 'koa-router';
 
 export default class Smarty {
     app: Koa
+    $router: KoaRouter
     constructor() {
         this.app = new Koa()
         this.app.use(
@@ -29,15 +32,25 @@ export default class Smarty {
                 }
             }
         })
-        const sequelize = new Sequelize(
-            Object.assign(db, { modelPaths: [`${__dirname}/../model`] })
-        );
-        // 数据库强制同步
-        sequelize['sync']({ force: true })
 
+        // 加载数据库
+        if(db){
+            const sequelize = new Sequelize(
+                Object.assign(db, { modelPaths: [`${__dirname}/../model`] })
+            );
+            // 数据库强制同步
+            sequelize['sync']({ force: true })
+        }
+        
+        
+        this.$router = new KoaRouter()
+        // 加载restfu接口
+        restful(this)
+        
+        // 路由加载器
+        load(resolve(__dirname, '../routes'),{},this);
 
-        const router = load(resolve(__dirname, '../routes'));
-        this.app.use(router.routes())
+        this.app.use(this.$router.routes())
     }
 
     listen(...args) {

@@ -1,6 +1,7 @@
 import * as glob from 'glob';
 import * as Koa from 'koa';
 import * as KoaRouter from 'koa-router';
+// import { router } from './restful/router';
 
 type HTTPMethod = 'get' | 'put' | 'del' | 'post' | 'patch'
 
@@ -13,9 +14,13 @@ type RouteOptions = {
     middlewares?: Array<Koa.Middleware>
 }
 
-const router = new KoaRouter()
-const decorate = (method: HTTPMethod, path: string, options: RouteOptions = {}, router: KoaRouter) => {
+// const router = new KoaRouter()
+
+let router
+
+const decorate = (method: HTTPMethod, path: string, options: RouteOptions = {}) => {
     return (target, property: string) => {
+     
         process.nextTick(() => {
             // 添加中间件数组
             const middlewares = []
@@ -37,7 +42,8 @@ const decorate = (method: HTTPMethod, path: string, options: RouteOptions = {}, 
 
     }
 }
-const method = method => (path: string, options?: RouteOptions) => decorate(method, path, options, router)
+
+const method = methodName => (path: string, options?: RouteOptions) => decorate(methodName, path, options)
 export const get = method('get')
 export const post = method('post')
 export const put = method('put')
@@ -45,11 +51,12 @@ export const del = method('del')
 
 
 
-export const load = (folder: string, options: LoadOptions = {}): KoaRouter => {
+export const load = (folder: string, options: LoadOptions = {},app) => {
+    router = app.$router
     const extname = options.extname || '.{js,ts}'
     glob.sync(require('path').join(folder, `./**/*${extname}`)).forEach((item) => require(item))
-    return router
 }
+
 
 export const middlewares = (middlewares: Koa.Middleware[]) => {
     return function (target) {
