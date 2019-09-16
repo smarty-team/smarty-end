@@ -16,6 +16,34 @@ npm start
 
 ## Sample
 
+- 约定CRUD接口
+
+  > 只需要添加模型就可以自动生成基础CRUD接口
+
+  ```js
+  // 添加模型model/user.js
+  import { Table, Column, Model, DataType } from 'sequelize-typescript';
+  @Table({})
+  class User extends Model<User> {
+      @Column({
+          primaryKey: true,
+          autoIncrement: true,
+          type: DataType.INTEGER,
+      })
+      public id: number;
+  
+      @Column(DataType.CHAR)
+      public name: string;
+  }
+  export default User
+  ```
+
+  - 自动生成如下接口
+    - GET /api/user
+    - POST /api/user/:id
+    - PUT /api/user/:id
+    - DELETE /api/user/:id
+
 - 装饰器路由
 
   ```js
@@ -67,11 +95,11 @@ npm start
 
 【✔️】装饰器路由（完成）
 
-【✔️】约定CRUD接口 （计划）
+【✔️】约定CRUD接口 （Mysql版本开发完成，Mongoose计划中）
 
 【✔️】约定CMS管理界面 （基于UMI AntD）（计划）
 
-【✔️】数据模型定制UI（计划）
+【✔️】图形化模型定制器（计划）
 
 【✔️】CLI工具（完成）
 

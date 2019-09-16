@@ -7,7 +7,7 @@ import { load } from '../framework/decors';
 import {  load as restful }  from '../framework/restful/index';
 import { resolve } from 'path'
 import { Sequelize } from 'sequelize-typescript';
-import { db } from '../config/index'
+import { db ,option} from '../config/index'
 import * as KoaRouter from 'koa-router';
 
 export default class Smarty {
@@ -39,13 +39,13 @@ export default class Smarty {
                 Object.assign(db, { modelPaths: [`${__dirname}/../model`] })
             );
             // 数据库强制同步
-            sequelize['sync']({ force: true })
+            sequelize['sync']({ force: option.forceSync })
         }
         
-        
         this.$router = new KoaRouter()
+
         // 加载restfu接口
-        restful(this)
+        option.restful && restful(this)
         
         // 路由加载器
         load(resolve(__dirname, '../routes'),{},this);

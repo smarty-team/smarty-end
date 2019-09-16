@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
-@Table({ })
+@Table({})
 class User extends Model<User> {
     @Column({
         primaryKey: true,

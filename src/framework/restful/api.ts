@@ -3,7 +3,6 @@ export const api = {
     async init(ctx, next) {
         console.log('model:', ctx.params.list)
 
-        // const model = ctx.app.$model[ctx.params.list]
         const { default: model } = require(`../../model/${ctx.params.list}`)
         console.log('model', model)
         if (model) {
@@ -23,11 +22,11 @@ export const api = {
         ctx.body = res
     },
     async update(ctx) {
-        const res = await ctx.list.update({ _id: ctx.params.id }, ctx.request.body)
+        const res = await ctx.list.update(ctx.request.body, { where: { id: ctx.params.id } })
         ctx.body = res
     },
     async del(ctx) {
-        const res = await ctx.list.delete({ _id: ctx.params.id })
+        const res = await ctx.list.destroy({ where: { id: ctx.params.id } })
         ctx.body = res
     },
     async page(ctx) {
