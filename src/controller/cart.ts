@@ -4,7 +4,7 @@ export default class User {
      * 获取购物车
      * @param ctx 
      */
-    @get('/carts',)
+    @get('/cart',)
     public async list(ctx) {
         ctx.body = { ok: 1, data: ['hello'] };
     }
@@ -13,7 +13,7 @@ export default class User {
      * 创建购物车
      * @param ctx 
      */
-    @post('/carts')
+    @post('/cart')
     public add(ctx) {
         ctx.body = { ok: 1 }
     }

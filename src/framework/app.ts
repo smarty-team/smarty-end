@@ -4,15 +4,16 @@ import * as serve from 'koa-static';
 import * as timing from 'koa-xtime';
 
 import { load } from '../framework/decors';
-import {  load as restful }  from '../framework/restful/index';
+import { load as restful } from '../framework/restful/index';
 import { resolve } from 'path'
 import { Sequelize } from 'sequelize-typescript';
-import { db ,option} from '../config/index'
+import { db, option } from '../config/index'
 import * as KoaRouter from 'koa-router';
 
 export default class Smarty {
     app: Koa
     $router: KoaRouter
+    $model: any
     constructor() {
         this.app = new Koa()
         this.app.use(
@@ -34,22 +35,29 @@ export default class Smarty {
         })
 
         // 加载数据库
-        if(db){
+        if (db) {
             const sequelize = new Sequelize(
                 Object.assign(db, { modelPaths: [`${__dirname}/../model`] })
             );
             // 数据库强制同步
             sequelize['sync']({ force: option.forceSync })
+
+            // 加载数据Model
+            // 这个地方有点偷懒 赶进度先这样 应该是基于文件名加载 而不应该是直接小写字母
+            const models = sequelize['models']
+            this.$model = {}
+            Object.keys(models).map(key => {
+                console.log('keys:',key.toLowerCase())
+                this.$model[key.toLowerCase()] = models[key]
+            })
         }
-        
         this.$router = new KoaRouter()
 
         // 加载restfu接口
         option.restful && restful(this)
-        
-        // 路由加载器
-        load(resolve(__dirname, '../routes'),{},this);
 
+        // 路由加载器
+        load(resolve(__dirname, '../controller'), {}, this);
         this.app.use(this.$router.routes())
     }
 

@@ -6,6 +6,7 @@
 ## Install
 
 - NodeJS 8.0 need [nodejs.org/en](https://nodejs.org/en/)
+- mysql need
 - Clone or download this repository Enter your local directory, and
 - install dependencies:
 

@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, Default, Comment, Unique } from 'sequelize-typescript';
 @Table({})
 class User extends Model<User> {
     @Column({
@@ -6,9 +6,28 @@ class User extends Model<User> {
         autoIncrement: true,
         type: DataType.INTEGER,
     })
-    public id: number;
+    public id: number
 
-    @Column(DataType.CHAR)
-    public name: string;
+    @Column({
+        type: DataType.CHAR,
+    })
+    public mobile: string
+
+    @Column({
+        type: DataType.CHAR,
+    })
+    public password: string
+
+    @Column({
+        type: DataType.CHAR,
+    })
+    public realname: string
+
+    @Column({
+        type: DataType.CHAR,
+    })
+    public avatar: string
+
+
 }
 export default User

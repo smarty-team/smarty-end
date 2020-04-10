@@ -1,16 +1,21 @@
 
 export const api = {
-    async init(ctx, next) {
-        console.log('model:', ctx.params.list)
+    init(app) {
+        return async (ctx, next) => {
+                console.log('model:',app.$model, ctx.params.list)
 
-        const { default: model } = require(`../../model/${ctx.params.list}`)
-        console.log('model', model)
-        if (model) {
-            ctx.list = model
-            await next()
-        } else {
-            ctx.body = 'no this model'
-        }
+                // const { default: model } = require(`../../model/${ctx.params.list}`)
+                // console.log('model', model)
+
+                const model = app.$model[ctx.params.list]
+                if (model) {
+                    ctx.list = model
+                    await next()
+                } else {
+                    ctx.body = 'no this model'
+                }
+            }
+
     },
 
     async get(ctx) {
