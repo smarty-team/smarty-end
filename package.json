@@ -11,7 +11,6 @@
     "docker": "docker-compose up --force-recreate --build",
     "dockerd": "docker-compose up -d --force-recreate --build",
     "format": "prettier --write \"src/**/*.ts\""
-
   },
   "bin": {
     "smarty": "./bin/smarty"
@@ -32,6 +31,7 @@
     "commander": "^3.0.1",
     "dotenv": "^8.2.0",
     "download-git-repo": "^2.0.0",
+    "husky": "^4.2.5",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa-router": "^7.4.0",
