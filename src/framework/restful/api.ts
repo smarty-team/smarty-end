@@ -1,26 +1,23 @@
-
 export const api = {
     init(app) {
         return async (ctx, next) => {
-                console.log('model:',app.$model, ctx.params.list)
+            console.log('model:', app.$model, ctx.params.list)
 
-                // const { default: model } = require(`../../model/${ctx.params.list}`)
-                // console.log('model', model)
+            // const { default: model } = require(`../../model/${ctx.params.list}`)
+            // console.log('model', model)
 
-                const model = app.$model[ctx.params.list]
-                if (model) {
-                    ctx.list = model
-                    await next()
-                } else {
-                    ctx.body = 'no this model'
-                }
+            const model = app.$model[ctx.params.list]
+            if (model) {
+                ctx.list = model
+                await next()
+            } else {
+                ctx.body = 'no this model'
             }
-
+        }
     },
 
     async get(ctx) {
         ctx.body = await ctx.list.findAll({})
-
     },
     async create(ctx) {
         const res = await ctx.list.create(ctx.request.body)
@@ -36,6 +33,6 @@ export const api = {
     },
     async page(ctx) {
         console.log('page...', ctx.params.page)
-        ctx.body = await ctx.list.findAll({})/*  */
+        ctx.body = await ctx.list.findAll({}) /*  */
     },
 }

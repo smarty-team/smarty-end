@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, Default, Comment, Unique } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, Default, Comment, Unique } from 'sequelize-typescript'
 @Table({})
 class User extends Model<User> {
     @Column({
@@ -27,7 +27,5 @@ class User extends Model<User> {
     //     type: DataType.CHAR,
     // })
     // public avatar: string
-
-
 }
 export default User

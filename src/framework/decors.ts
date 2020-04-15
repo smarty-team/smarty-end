@@ -1,66 +1,60 @@
-import * as glob from 'glob';
-import * as Koa from 'koa';
-import * as KoaRouter from 'koa-router';
+import * as glob from 'glob'
+import * as Koa from 'koa'
+import * as KoaRouter from 'koa-router'
 // import { router } from './restful/router';
 
 type HTTPMethod = 'get' | 'put' | 'del' | 'post' | 'patch'
 
-type LoadOptions = {
+interface ILoadOptions {
     extname?: string
 }
 
-type RouteOptions = {
-    prefix?: string;
-    middlewares?: Array<Koa.Middleware>
+interface IRouteOptions {
+    prefix?: string
+    middlewares?: Koa.Middleware[]
 }
 
 // const router = new KoaRouter()
 
 let router
 
-const decorate = (method: HTTPMethod, path: string, options: RouteOptions = {}) => {
+const decorate = (httpMethod: HTTPMethod, path: string, options: IRouteOptions = {}) => {
     return (target, property: string) => {
-     
         process.nextTick(() => {
             // 添加中间件数组
-            const middlewares = []
+            const mids = []
             if (options.middlewares) {
-                middlewares.push(...options.middlewares)
+                mids.push(...options.middlewares)
             }
 
             if (target.middlewares) {
-                middlewares.push(...target.middlewares)
+                mids.push(...target.middlewares)
             }
 
-            middlewares.push(target[property])
+            mids.push(target[property])
 
             // url前缀
             const url = options.prefix ? options.prefix + path : path
             // router[method](url, target[property])
-            router[method](url, ...middlewares)
+            router[httpMethod](url, ...mids)
         })
-
     }
 }
 
-const method = methodName => (path: string, options?: RouteOptions) => decorate(methodName, path, options)
+const method = (methodName) => (path: string, options?: IRouteOptions) => decorate(methodName, path, options)
 export const get = method('get')
 export const post = method('post')
 export const put = method('put')
 export const del = method('del')
 
-
-
-export const load = (folder: string, options: LoadOptions = {},app) => {
+export const load = (folder: string, options: ILoadOptions = {}, app) => {
     router = app.$router
     const extname = options.extname || '.{js,ts}'
     glob.sync(require('path').join(folder, `./**/*${extname}`)).forEach((item) => require(item))
 }
 
-
-export const middlewares = (middlewares: Koa.Middleware[]) => {
-    return function (target) {
-        target.prototype.middlewares = middlewares
+export const middlewares = (mids: Koa.Middleware[]) => {
+    return (target) => {
+        target.prototype.middlewares = mids
     }
 }
-

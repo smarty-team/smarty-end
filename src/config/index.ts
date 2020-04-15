@@ -1,28 +1,27 @@
 // import { ISequelizeConfig } from "sequelize-typescript"
-type Config = {
+interface IConfig {
     // db?: ISequelizeConfig,
-    db:{}
+    db: {}
     option?: {
-
-        restful: boolean,
+        restful: boolean
         // 是否强制数据库同步
         forceSync: boolean
     }
 }
 
-const config: Config = {
+const config: IConfig = {
     db: {
         dialect: 'mysql',
         host: 'localhost',
         database: 'smarty',
         username: 'root',
-        password: 'example'
+        password: 'example',
     },
     option: {
         restful: true,
         // 是否强制数据库同步
-        forceSync: false
-    }
+        forceSync: false,
+    },
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -31,14 +30,10 @@ if (process.env.NODE_ENV === 'production') {
         host: process.env.DB_HOST,
         database: process.env.DB_NAME,
         username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD
+        password: process.env.DB_PASSWORD,
     }
 }
 
-
 export { config }
 
-
-
 // export config
-

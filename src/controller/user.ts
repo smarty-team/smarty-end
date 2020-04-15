@@ -9,47 +9,46 @@ import model from '../model/user'
     async (ctx, next) => {
         console.log('class middlewares ....')
         await next()
-
-    }
+    },
 ])
 export default class User {
     /**
      * 获取用户信息
-     * @param ctx 
+     * @param ctx
      */
     @get('/users', {
         middlewares: [
             async (ctx, next) => {
                 console.log('method middleware')
                 await next()
-            }
-        ]
+            },
+        ],
     })
     @querystring({
         id: { type: 'string', required: false, max: 200 },
     })
     public async list(ctx) {
-        const users = await model.findAll()
-        ctx.body = { ok: 1, data: users };
+        const records = await model.findAll()
+        ctx.body = { ok: 1, data: records }
     }
 
     /**
      * 创建用户
-     * @param ctx 
+     * @param ctx
      */
     @body({
-        name: { type: 'string', required: true, max: 200, },
+        name: { type: 'string', required: true, max: 200 },
     })
     @post('/users', {
         middlewares: [
-            async function (ctx, next) {
+            async (ctx, next) => {
                 console.log('middleware go.....')
                 await next()
-            }
-        ]
+            },
+        ],
     })
     public add(ctx) {
-        users.push(ctx.request.body);
+        users.push(ctx.request.body)
         ctx.body = { ok: 1 }
     }
 }
