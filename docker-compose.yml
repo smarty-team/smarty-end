@@ -1,15 +1,5 @@
 version: '3.1'
 services:
-  mongo:
-    image: mongo
-    restart: always
-    ports:
-        - 27017:27017
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -23,7 +13,22 @@ services:
     restart: always
     ports:
       - 8080:8080
-  redis:
-    image: redis
+  app-pm2:
+    container_name: app-pm2
+    #构建容器
+    build: .
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=smarty
+      - DB_USER=root
+      - DB_PASSWORD=example
     ports:
-      - "6379:6379" 
+      - "3000:3000"
+    depends_on:
+      - mysql
+    
+    #直接从git拉去
+    # build: git@github.com:su37josephxia/docker_ci.git#:backend
+    # 需要链接本地代码时
+    # volumes:
+    #   - ./backend:/usr/src/app

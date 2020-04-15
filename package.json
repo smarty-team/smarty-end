@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev ./src/framework/index.ts -P tsconfig.json --no-cache",
-    "build": "tsc -P tsconfig.json && node ./dist/index.js",
-    "tslint": "tslint --fix -p tsconfig.json"
+    "build": "tsc -P tsconfig.json",
+    "tslint": "tslint --fix -p tsconfig.json",
+    "db": "docker-compose up mysql adminer",
+    "docker": "docker-compose up --force-recreate --build",
+    "dockerd": "docker-compose up -d --force-recreate --build"
   },
   "bin": {
     "smarty": "./bin/smarty"
@@ -15,12 +18,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/koa": "^2.11.3",
+    "@types/node": "^13.11.1",
+    "@types/bluebird": "^3.5.30",
+    "@types/validator": "^13.0.0",
     "ts-node-dev": "^1.0.0-pre.40",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   },
   "dependencies": {
     "commander": "^3.0.1",
+    "dotenv": "^8.2.0",
     "download-git-repo": "^2.0.0",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
@@ -31,7 +39,7 @@
     "ora": "^3.4.0",
     "parameter": "^3.6.0",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.8.12",
-    "sequelize-typescript": "^0.6.11"
+    "sequelize": "^5.21.5",
+    "sequelize-typescript": "^1.1.0"
   }
 }

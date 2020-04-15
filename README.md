@@ -92,6 +92,8 @@ npm start
 
 
 
+
+
 ## 开发计划
 
 【✔️】装饰器路由（完成）
@@ -108,3 +110,12 @@ npm start
 
 ## 欢迎志同道合的兄弟们一起交流
 ![二维码](assets/wx_qr.png)
+
+
+## Docker使用
+### 获取最新版代码
+git pull
+
+#### 强制重新编译容器
+docker-compose down
+docker-compose up -d --force-recreate --build

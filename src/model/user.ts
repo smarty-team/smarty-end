@@ -8,25 +8,25 @@ class User extends Model<User> {
     })
     public id: number
 
-    @Column({
-        type: DataType.CHAR,
-    })
-    public mobile: string
+    // @Column({
+    //     type: DataType.CHAR,
+    // })
+    // public mobile: string
 
-    @Column({
-        type: DataType.CHAR,
-    })
-    public password: string
+    // @Column({
+    //     type: DataType.CHAR,
+    // })
+    // public password: string
 
-    @Column({
-        type: DataType.CHAR,
-    })
-    public realname: string
+    // @Column({
+    //     type: DataType.CHAR,
+    // })
+    // public realname: string
 
-    @Column({
-        type: DataType.CHAR,
-    })
-    public avatar: string
+    // @Column({
+    //     type: DataType.CHAR,
+    // })
+    // public avatar: string
 
 
 }

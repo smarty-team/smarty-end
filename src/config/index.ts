@@ -1,19 +1,44 @@
-import { ISequelizeConfig } from "sequelize-typescript";
+// import { ISequelizeConfig } from "sequelize-typescript"
+type Config = {
+    // db?: ISequelizeConfig,
+    db:{}
+    option?: {
 
-export const option = {
-    // 是否开启自动restful接口功能
-    restful: true,
-    // 是否强制数据库同步
-    forceSync: true
+        restful: boolean,
+        // 是否强制数据库同步
+        forceSync: boolean
+    }
+}
 
+const config: Config = {
+    db: {
+        dialect: 'mysql',
+        host: 'localhost',
+        database: 'smarty',
+        username: 'root',
+        password: 'example'
+    },
+    option: {
+        restful: true,
+        // 是否强制数据库同步
+        forceSync: false
+    }
+}
+
+if (process.env.NODE_ENV === 'production') {
+    config.db = {
+        dialect: 'mysql',
+        host: process.env.DB_HOST,
+        database: process.env.DB_NAME,
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD
+    }
 }
 
 
-export const db: ISequelizeConfig = {
-    dialect: 'mysql',
-    host: 'localhost',
-    database: 'smarty',
-    username: 'root',
-    password: 'example'
-}
-export const middleware = ['logger']
+export { config }
+
+
+
+// export config
+

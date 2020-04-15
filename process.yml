@@ -1,0 +1,7 @@
+apps:
+  - script : dist/framework/index.js
+    name : smarty
+    instances: 2
+    watch  : true
+    env    :
+      NODE_ENV: production
