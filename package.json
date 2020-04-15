@@ -10,7 +10,9 @@
     "db": "docker-compose up mysql adminer",
     "docker": "docker-compose up --force-recreate --build",
     "dockerd": "docker-compose up -d --force-recreate --build",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "coverage": "jest --config jestconfig.json --coverage",
+    "test": "jest --config jestconfig.json"
   },
   "bin": {
     "smarty": "./bin/smarty"
@@ -28,10 +30,12 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "@types/jest": "^25.2.1",
     "commander": "^3.0.1",
     "dotenv": "^8.2.0",
     "download-git-repo": "^2.0.0",
     "husky": "^4.2.5",
+    "jest": "^25.3.0",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa-router": "^7.4.0",
@@ -44,6 +48,7 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.5",
     "sequelize-typescript": "^1.1.0",
+    "ts-jest": "^25.3.1",
     "tslint-config-prettier": "^1.18.0"
   }
 }

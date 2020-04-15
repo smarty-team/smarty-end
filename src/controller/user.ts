@@ -3,7 +3,7 @@ import { get, post, middlewares } from '../framework/decors'
 import { querystring, body } from '../framework/validate'
 const users = [{ name: 'tom', age: 20 }]
 
-import model from '../model/user'
+// import model from '../model/user'
 
 @middlewares([
     async (ctx, next) => {
@@ -28,8 +28,8 @@ export default class User {
         id: { type: 'string', required: false, max: 200 },
     })
     public async list(ctx) {
-        const records = await model.findAll()
-        ctx.body = { ok: 1, data: records }
+        // const records = await model.findAll()
+        ctx.body = { ok: 1, data: users }
     }
 
     /**

@@ -14,9 +14,9 @@ interface IRouteOptions {
     middlewares?: Koa.Middleware[]
 }
 
-// const router = new KoaRouter()
+const router = new KoaRouter()
 
-let router
+// let router
 
 const decorate = (httpMethod: HTTPMethod, path: string, options: IRouteOptions = {}) => {
     return (target, property: string) => {
@@ -48,7 +48,7 @@ export const put = method('put')
 export const del = method('del')
 
 export const load = (folder: string, options: ILoadOptions = {}, app) => {
-    router = app.$router
+    app.$router = router
     const extname = options.extname || '.{js,ts}'
     glob.sync(require('path').join(folder, `./**/*${extname}`)).forEach((item) => require(item))
 }
