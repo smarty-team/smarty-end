@@ -1,6 +1,7 @@
 import * as glob from 'glob'
 import * as Koa from 'koa'
 import * as KoaRouter from 'koa-router'
+import { resolve, join } from 'path'
 // import { router } from './restful/router';
 
 type HTTPMethod = 'get' | 'put' | 'del' | 'post' | 'patch'
@@ -14,9 +15,9 @@ interface IRouteOptions {
     middlewares?: Koa.Middleware[]
 }
 
-const router = new KoaRouter()
+// const router = new KoaRouter()
 
-// let router
+let router
 
 const decorate = (httpMethod: HTTPMethod, path: string, options: IRouteOptions = {}) => {
     return (target, property: string) => {
@@ -48,9 +49,13 @@ export const put = method('put')
 export const del = method('del')
 
 export const load = (folder: string, options: ILoadOptions = {}, app) => {
-    app.$router = router
+   
+    router = app.$router
     const extname = options.extname || '.{js,ts}'
-    glob.sync(require('path').join(folder, `./**/*${extname}`)).forEach((item) => require(item))
+
+    glob.sync(join(folder, `./**/*${extname}`))
+        .filter(v => v.indexOf('.spec') === -1) // 排除测试代码
+        .forEach(item => require(item))
 }
 
 export const middlewares = (mids: Koa.Middleware[]) => {

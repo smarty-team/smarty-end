@@ -1,6 +1,6 @@
 import * as Koa from 'koa'
-import { get, post, middlewares } from '../framework/decors'
-import { querystring, body } from '../framework/validate'
+import { get, post, middlewares } from '../../lib/framework/decors'
+import { querystring, body } from '../../lib/framework/validate'
 const users = [{ name: 'tom', age: 20 }]
 
 // import model from '../model/user'

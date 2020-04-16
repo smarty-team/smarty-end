@@ -1,20 +1,19 @@
 import * as Koa from 'koa'
 import * as bodify from 'koa-body'
-import * as serve from 'koa-static'
-import * as timing from 'koa-xtime'
 
-import { load } from '../framework/decors'
-import { load as restful } from '../framework/restful/index'
+import { load } from './decors'
+import { load as restful } from './restful/index'
 import { resolve } from 'path'
 import { Sequelize } from 'sequelize-typescript'
-import { config } from '../config/index'
+import { config } from '../../src/config/index'
 import * as KoaRouter from 'koa-router'
-import { createDataBase } from '../data/initDb'
+import { createDataBase } from './utils/initDb'
 export default class Smarty {
     app: Koa
     $router: KoaRouter
     $model: any
     constructor() {
+        
         this.app = new Koa()
         this.app.use(
             bodify({
@@ -37,9 +36,8 @@ export default class Smarty {
         // 加载数据库
         if (config.db) {
             // 初始化数据库
-            console.log('-----create')
             createDataBase(config.db)
-            const sequelize = new Sequelize(Object.assign(config.db, { modelPaths: [`${__dirname}/../model`] }))
+            const sequelize = new Sequelize(Object.assign(config.db, { modelPaths: [`${config.root}/src/model`] }))
             // 数据库强制同步
             sequelize.sync({ force: config.option.forceSync })
 
@@ -60,7 +58,7 @@ export default class Smarty {
         }
 
         // 路由加载器
-        load(resolve(__dirname, '../controller'), {}, this)
+        load(resolve(__dirname, `${config.root}/src/controller`), {}, this)
         this.app.use(this.$router.routes())
     }
 

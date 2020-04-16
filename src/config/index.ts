@@ -7,8 +7,9 @@ interface IConfig {
         // 是否强制数据库同步
         forceSync: boolean
     }
+    root: string
 }
-
+import { resolve } from 'path'
 const config: IConfig = {
     db: {
         dialect: 'mysql',
@@ -22,6 +23,7 @@ const config: IConfig = {
         // 是否强制数据库同步
         forceSync: false,
     },
+    root: resolve('.'),
 }
 
 if (process.env.NODE_ENV === 'production') {

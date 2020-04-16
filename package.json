@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./src/framework/index.ts -P tsconfig.json --no-cache",
+    "start": "ts-node-dev ./lib/framework/index.ts -P tsconfig.json --no-cache",
     "build": "tsc -P tsconfig.json",
     "tslint": "tslint --fix -p tsconfig.json",
     "db": "docker-compose up mysql adminer",
