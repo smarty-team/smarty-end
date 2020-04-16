@@ -17,11 +17,15 @@ interface IRouteOptions {
 
 // const router = new KoaRouter()
 
-let router
+let router = null
 
 const decorate = (httpMethod: HTTPMethod, path: string, options: IRouteOptions = {}) => {
     return (target, property: string) => {
         process.nextTick(() => {
+            if(!router) {
+                return 
+            }
+
             // 添加中间件数组
             const mids = []
             if (options.middlewares) {
