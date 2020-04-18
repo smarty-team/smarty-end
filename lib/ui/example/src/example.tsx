@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Console, { LogEntry, LogMessage } from 'react-console-component';
 import './main.css';
-import * as io from 'socket.io-client';
+import io from 'socket.io-client';
 const socket = io();
 
 interface EchoConsoleState {

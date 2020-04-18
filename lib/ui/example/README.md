@@ -2,6 +2,10 @@
 
 前后端通用入口 
 
+## 安装依赖
+yarn
+npm i node-sass --sass_binary_path=/Users/lzwme/Downloads/darwin-x64-48_binding.node -s
+
 ## 调试
 Start dev server:
     npm run dev

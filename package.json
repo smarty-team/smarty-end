@@ -12,7 +12,7 @@
     "dockerd": "docker-compose up -d --force-recreate --build",
     "format": "prettier --write \"src/**/*.ts\"",
     "coverage": "jest --config jestconfig.json --coverage",
-    "ui": "nodemon ./lib/ui/example/server/index.js",
+    "ui": "nodemon ./lib/ui/antd-demo-ts/server/index.js",
     "test": "jest --config jestconfig.json"
   },
   "bin": {

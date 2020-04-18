@@ -1,2 +1,3 @@
 src/*
 lib/ui/example/dist/*
+lib/ui/antd-demo-ts/dist/*
