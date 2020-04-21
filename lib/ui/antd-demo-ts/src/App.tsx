@@ -78,7 +78,7 @@ class App extends React.Component<{}, EchoConsoleState> {
         welcomeMessage={"Welcome to Miku!\n"}
         autofocus={true}
       />
-      <Button onClick={this.start}>启动项目</Button>
+      <Button onClick={this.start}>启动项目1</Button>
       <Button onClick={this.tslint}>格式检查</Button>
       <Button onClick={this.format}>代码格式美化</Button>
     </div>

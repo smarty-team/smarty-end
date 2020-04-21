@@ -12,7 +12,7 @@
     "dockerd": "docker-compose up -d --force-recreate --build",
     "format": "prettier --write \"src/**/*.ts\"",
     "coverage": "jest --config jestconfig.json --coverage",
-    "ui": "nodemon ./lib/ui/antd-demo-ts/server/index.js",
+    "ui": "cd ./lib/ui/antd-demo-ts/ && nodemon server/index.js",
     "test": "jest --config jestconfig.json"
   },
   "bin": {
@@ -29,7 +29,7 @@
     "nodemon": "^2.0.3",
     "ts-node-dev": "^1.0.0-pre.40",
     "tslint": "^5.20.1",
-    "typescript": "^3.5.2"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "@types/jest": "^25.2.1",
