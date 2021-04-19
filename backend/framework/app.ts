@@ -5,7 +5,7 @@ import { load } from './decors'
 import { load as restful } from './restful/index'
 import { resolve } from 'path'
 import { Sequelize } from 'sequelize-typescript'
-import { config } from '../../src/config/index'
+import { config } from '../src/config/index'
 import * as KoaRouter from 'koa-router'
 import { createDataBase } from './utils/initDb'
 export default class Smarty {

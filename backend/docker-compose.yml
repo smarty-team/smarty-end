@@ -13,19 +13,19 @@ services:
     restart: always
     ports:
       - 8080:8080
-  app-pm2:
-    container_name: app-pm2
-    #构建容器
-    build: .
-    environment:
-      - DB_HOST=mysql
-      - DB_NAME=smarty
-      - DB_USER=root
-      - DB_PASSWORD=example
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mysql
+  # app-pm2:
+  #   container_name: app-pm2
+  #   #构建容器
+  #   build: .
+  #   environment:
+  #     - DB_HOST=mysql
+  #     - DB_NAME=smarty
+  #     - DB_USER=root
+  #     - DB_PASSWORD=example
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - mysql
     
     #直接从git拉去
     # build: git@github.com:su37josephxia/docker_ci.git#:backend
