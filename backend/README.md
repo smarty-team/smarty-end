@@ -14,99 +14,70 @@ npm start
 ```
 
 ## 数据库环境
-- Mysql
+需要Mongodb,可以自行安装
+也可以在安装Docker后运行 一键启动MongoDB环境
 ```
-# 创建数据库
-# user:         root
-# password:     example
-mysql -h localhost -u root -pexample 
-
-# database: 'smarty'
-CREATE DATABASE smarty;
-
-# 退出
-exit
+yarn dockerd
 ```
 
-## Sample
-
-- 约定CRUD接口
-
-  > 只需要添加模型就可以自动生成基础CRUD接口
-
-  ```js
-  // 添加模型model/user.js
-  import { Table, Column, Model, DataType } from 'sequelize-typescript';
-  @Table({})
-  class User extends Model<User> {
-      @Column({
-          primaryKey: true,
-          autoIncrement: true,
-          type: DataType.INTEGER,
-      })
-      public id: number;
-  
-      @Column(DataType.CHAR)
-      public name: string;
-  }
-  export default User
-  ```
-
-- 自动生成如下接口
-    - GET /api/user
-    - POST /api/user/:id
-    - PUT /api/user/:id
-    - DELETE /api/user/:id
-
-- 装饰器路由
-
-  ```js
-  // router/api.js
-  import { get, post } from '../framework/decors'
-  export default class User {
-      /**
-       * 获取购物车
-       * @param ctx 
-       */
-      @get('/carts')
-      public async list(ctx) {
-          ctx.body = { ok: 1, data: ['hello'] };
-      }
-  
-      /**
-       * 创建购物车
-       * @param ctx 
-       */
-      @post('/carts')
-      public add(ctx) {
-          ctx.body = { ok: 1 }
-      }
-  }
-  ```
-
-  
-
-- 接口参数校验装饰器
-
-> 检验规则 https://www.npmjs.com/package/parameter
-
-```js
-// Post方式
-@body({
-        name: { type: 'string', required: true, max: 200, 	},
-})
-// Get方式
-@querystring({
-        id: { type: 'string', required: false, max: 200 },
-})
+## 测试版API接口
+1. 数据库配置 /config/index.ts
+```json
+mongo: {
+        url: 'mongodb://localhost:27017/smarty',
+        options: {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        },
+        forceUpate: true, // 是否强制更新数据库数据
+    },
 ```
 
-## Docker使用
-### 获取最新版代码
-git pull
-
-#### 强制重新编译容器
-docker-compose down
-docker-compose up -d --force-recreate --build
 
 
+2. 设定测试数据 /data/user.json
+
+   示例数据
+
+```json
+[
+  {
+    "avatar": "213213",
+    "mobile": "1361234121",
+    "password": "王1",
+    "realName": "123"
+  },
+]
+
+```
+
+3. 在 /model中添加模型文件后会自动加载对该资源的Restful接口
+
+   例： /model/user.ts
+
+   ```
+   export default {
+       schema: {
+           mobile: { type: String, unique: true, required: true },
+           password: { type: String, required: true },
+           realName: { type: String, required: true },
+           avatar: { type: String, default: 'https://1.gravatar.com/avatar/a3e54af3cb6e157e496ae430aed4f4a3?s=96&d=mm' },
+           createdAt: { type: Date, default: Date.now },
+       },
+   }
+   
+   ```
+
+   自动对应该资源的Restful接口
+
+   ```
+   GET /api/user/:id'      查询指定id的数据
+   GET '/api/user					获取数据列表
+   POST '/api/user					创建数据
+   PUT '/api/user/:id'			修改数据
+   DELETE '/api/user/:id'  删除数据
+   ```
+
+   
+
+   

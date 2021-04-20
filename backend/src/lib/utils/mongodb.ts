@@ -33,7 +33,7 @@ export const initData = (config, app: Smarty) => {
         console.log('initData: ', config, name)
         const model = app.$model[name.replace('.json', '')]
         model.deleteMany({})
-        if (config.force) await model.deleteMany()
+        if (config.forceUpdate) await model.deleteMany()
         await model.insertMany(data)
     })
 }

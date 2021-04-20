@@ -25,6 +25,7 @@ const config: IConfig = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
+        forceUpate: true, // 是否强制更新数据库数据
     },
     option: {
         restful: true,

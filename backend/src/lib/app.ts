@@ -59,7 +59,7 @@ export default class Smarty {
             loadModel(config.mongo, this)
 
             // 初始化数据
-            initData({ force: true }, this)
+            initData(config.mongo, this)
         }
 
         this.$router = new KoaRouter()
