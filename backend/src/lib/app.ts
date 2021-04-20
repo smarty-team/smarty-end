@@ -4,16 +4,19 @@ import * as bodify from 'koa-body'
 import { load } from './decors'
 import { load as restful } from './restful/index'
 import { resolve } from 'path'
-import { Sequelize } from 'sequelize-typescript'
 import { config } from '../config/index'
 import * as KoaRouter from 'koa-router'
-import { createDataBase } from './utils/initDb'
+// import { createDataBase } from './utils/initDb'
+import { loadModel, initData } from './utils/mongodb'
+
 export default class Smarty {
     app: Koa
     $router: KoaRouter
     $model: any
+    rootPath: string
+
     constructor() {
-        
+        this.rootPath = resolve('./src')
         this.app = new Koa()
         this.app.use(
             bodify({
@@ -34,22 +37,31 @@ export default class Smarty {
         })
 
         // 加载数据库
-        if (config.db) {
-            // 初始化数据库
-            createDataBase(config.db)
-            const sequelize = new Sequelize(Object.assign(config.db, { modelPaths: [`${config.root}/src/model`] }))
-            // 数据库强制同步
-            sequelize.sync({ force: config.option.forceSync })
+        // if (config.mysql) {
+        //     // 初始化数据库
+        //     createDataBase(config.mysql)
+        //     const sequelize = new Sequelize(Object.assign(config.db, { modelPaths: [`${config.root}/src/model`] }))
+        //     // 数据库强制同步
+        //     sequelize.sync({ force: config.option.forceSync })
 
-            // 加载数据Model
-            // 这个地方有点偷懒 赶进度先这样 应该是基于文件名加载 而不应该是直接小写字母
-            const models = sequelize.models
-            this.$model = {}
-            Object.keys(models).map((key) => {
-                console.log('keys:', key.toLowerCase())
-                this.$model[key.toLowerCase()] = models[key]
-            })
+        //     // 加载数据Model
+        //     // 这个地方有点偷懒 赶进度先这样 应该是基于文件名加载 而不应该是直接小写字母
+        //     const models = sequelize.models
+        //     this.$model = {}
+        //     Object.keys(models).map((key) => {
+        //         console.log('keys:', key.toLowerCase())
+        //         this.$model[key.toLowerCase()] = models[key]
+        //     })
+        // }
+        // 加载Mongo
+        if (config.mongo) {
+            // 加载模块
+            loadModel(config.mongo, this)
+
+            // 初始化数据
+            initData({ force: true }, this)
         }
+
         this.$router = new KoaRouter()
 
         // 加载restfu接口

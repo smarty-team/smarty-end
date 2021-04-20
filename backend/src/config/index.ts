@@ -1,7 +1,8 @@
 // import { ISequelizeConfig } from "sequelize-typescript"
 interface IConfig {
     // db?: ISequelizeConfig,
-    db: {}
+    mysql?: {}
+    mongo?: {}
     option?: {
         restful: boolean
         // 是否强制数据库同步
@@ -11,29 +12,36 @@ interface IConfig {
 }
 import { resolve } from 'path'
 const config: IConfig = {
-    db: {
-        dialect: 'mysql',
-        host: 'localhost',
-        database: 'smarty',
-        username: 'root',
-        password: 'example',
+    // mysql: {
+    //     dialect: 'mysql',
+    //     host: 'localhost',
+    //     database: 'smarty',
+    //     username: 'root',
+    //     password: 'example',
+    // },
+    mongo: {
+        url: 'mongodb://localhost:27017/smarty',
+        options: {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        },
     },
     option: {
         restful: true,
         // 是否强制数据库同步
-        forceSync: false,
+        forceSync: true,
     },
     root: resolve('.'),
 }
 
 if (process.env.NODE_ENV === 'production') {
-    config.db = {
-        dialect: 'mysql',
-        host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-    }
+    // config.mysql = {
+    //     dialect: 'mysql',
+    //     host: process.env.DB_HOST,
+    //     database: process.env.DB_NAME,
+    //     username: process.env.DB_USER,
+    //     password: process.env.DB_PASSWORD,
+    // }
 }
 
 export { config }
