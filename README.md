@@ -41,3 +41,7 @@ docker-compose down
 docker-compose up -d --force-recreate --build
 
 
+## 参考资料
+- 测试Jest And supertest
+测试用例：supertest
+http://www.voidcn.com/article/p-zselcjuo-bnw.html
