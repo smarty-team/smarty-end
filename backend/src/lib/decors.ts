@@ -22,8 +22,8 @@ let router = null
 const decorate = (httpMethod: HTTPMethod, path: string, options: IRouteOptions = {}) => {
     return (target, property: string) => {
         process.nextTick(() => {
-            if(!router) {
-                return 
+            if (!router) {
+                return
             }
 
             // 添加中间件数组
@@ -53,13 +53,12 @@ export const put = method('put')
 export const del = method('del')
 
 export const load = (folder: string, options: ILoadOptions = {}, app) => {
-   
     router = app.$router
     const extname = options.extname || '.{js,ts}'
 
     glob.sync(join(folder, `./**/*${extname}`))
-        .filter(v => v.indexOf('.spec') === -1) // 排除测试代码
-        .forEach(item => require(item))
+        .filter((v) => v.indexOf('.spec') === -1) // 排除测试代码
+        .forEach((item) => require(item))
 }
 
 export const middlewares = (mids: Koa.Middleware[]) => {

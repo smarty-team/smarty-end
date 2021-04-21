@@ -14,12 +14,19 @@ export const addRestful = (app) => {
 export const addModelList = (app) => {
     const router = app.$router
     router.get('/api/metadata/', (ctx) => {
-        const list = fs.readdirSync(app.rootPath + '/model').map((v) => v.replace('.ts', ''))
+        const list = fs.readdirSync(app.rootPath + '/model').map((id) => {
+            id = id.replace('.ts', '')
+            const model = require(`${app.rootPath}/model/${id}`)
+            return {
+                id,
+                name : model.default.name
+            }
+        })
+
         ctx.success(list)
     })
     router.get('/api/metadata/:id', (ctx) => {
-        const model = require(`${app.rootPath}/model/${ctx.params.id}`)
+        const model = require(`${app.rootPath}/model/${ctx.params.id}`).default
         ctx.success(model)
-
     })
 }

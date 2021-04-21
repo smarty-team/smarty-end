@@ -1,4 +1,5 @@
 export default {
+    name: '用户管理',
     schema: {
         mobile: { name: '手机号',type: String, unique: true, required: true },
         password: { name: '密码',type: String, required: true  },
