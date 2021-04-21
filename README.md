@@ -31,15 +31,17 @@
 ## 欢迎志同道合的兄弟们一起交流
 ![二维码](assets/wx_qr.png)
 
+## 里程碑
+- step01 添加模型 ,Admin完成CRUD
+- step02 表单定制器定制模型
+- step03 User表登陆注册
+- step04 权限分配role&api
+- step05 一对多和一对一
 
-## Docker使用
-### 获取最新版代码
-git pull
-
-#### 强制重新编译容器
-docker-compose down
-docker-compose up -d --force-recreate --build
-
+- 插件功能: Blog插件 电商插件 CMS插件 小程序插件 公众号插件
+- SSO单点登陆服务
+- 监控 
+- Devops
 
 ## 参考资料
 - 测试Jest And supertest
