@@ -16,8 +16,9 @@ function load(dir, cb) {
     })
 }
 
-export const loadModel = (config, app: Smarty) => {
-    mongoose.connect(config.url, config.options)
+export const loadModel = (app: Smarty) => {
+    const { url, options } = app.config.mongo
+    mongoose.connect(url, options)
     const conn = mongoose.connection
     conn.on('error', () => console.error('连接数据库失败'))
     app.$model = {}
@@ -28,12 +29,13 @@ export const loadModel = (config, app: Smarty) => {
     })
 }
 
-export const initData = (config, app: Smarty) => {
+export const initData = (app: Smarty) => {
     load(app.rootPath + '/data', async (name, data) => {
-        console.log('initData: ', config, name)
+        console.log('initData: ', name)
+        const forceUpdate = app.config.mongo.forceUpate
         const model = app.$model[name.replace('.json', '')]
         model.deleteMany({})
-        if (config.forceUpdate) await model.deleteMany()
+        if (forceUpdate) await model.deleteMany()
         await model.insertMany(data)
     })
 }

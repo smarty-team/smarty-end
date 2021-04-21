@@ -13,25 +13,23 @@ export const api = {
     },
 
     async list(ctx) {
-        ctx.body = await ctx.list.find({})
+        ctx.success(await ctx.list.find({}))
     },
+
     async get(ctx) {
-        ctx.body = await ctx.list.findOne({ _id: ctx.params.id })
+        ctx.success(await ctx.list.findOne({ _id: ctx.params.id }))
     },
+    
     async create(ctx) {
         const res = await ctx.list.create(ctx.request.body)
-        ctx.body = res
+        ctx.success(res)
     },
     async update(ctx) {
         const res = await ctx.list.updateOne({ _id: ctx.params.id }, ctx.request.body)
-        ctx.body = res
+        ctx.success(res)
     },
     async del(ctx) {
         const res = await ctx.list.deleteOne({ _id: ctx.params.id })
-        ctx.body = res
-    },
-    async page(ctx) {
-        console.log('page...', ctx.params.page)
-        ctx.body = await ctx.list.find({}) /*  */
+        ctx.success(res)
     },
 }

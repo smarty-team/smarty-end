@@ -2,19 +2,21 @@ import * as Koa from 'koa'
 import * as bodify from 'koa-body'
 
 import { load } from './decors'
-import { load as restful } from './restful/index'
+import { addRestful, addModelList } from './restful/index'
 import { resolve } from 'path'
-import { config } from '../config/index'
+import { config, IConfig } from '../config/index'
 import * as KoaRouter from 'koa-router'
 // import { createDataBase } from './utils/initDb'
 import { loadModel, initData } from './utils/mongodb'
+import addHelper from './middleware/helper'
 
 export default class Smarty {
     app: Koa
     $router: KoaRouter
     $model: any
     rootPath: string
-
+    config: IConfig
+    helper: any
     constructor() {
         this.rootPath = resolve('./src')
         this.app = new Koa()
@@ -24,6 +26,10 @@ export default class Smarty {
                 strict: false,
             }),
         )
+        this.config = config
+
+        // 添加Help函数
+        this.app.use(addHelper)
 
         this.app.use(async (ctx, next) => {
             try {
@@ -33,6 +39,7 @@ export default class Smarty {
                     code: 500, // 服务端自身的处理逻辑错误(包含框架错误500 及 自定义业务逻辑错误533开始 ) 客户端请求参数导致的错误(4xx开始)，设置不同的状态码
                     error: err.message,
                 }
+                throw err
             }
         })
 
@@ -56,21 +63,23 @@ export default class Smarty {
         // 加载Mongo
         if (config.mongo) {
             // 加载模块
-            loadModel(config.mongo, this)
+            loadModel( this)
 
             // 初始化数据
-            initData(config.mongo, this)
+            initData(this)
         }
 
         this.$router = new KoaRouter()
 
         // 加载restfu接口
         if (config.option.restful) {
-            restful(this)
+            addRestful(this)
+
+            addModelList(this)
         }
 
         // 路由加载器
-        load(resolve(__dirname, `${config.root}/src/controller`), {}, this)
+        // load(resolve(__dirname, `${config.root}/src/controller`), {}, this)
         this.app.use(this.$router.routes())
     }
 

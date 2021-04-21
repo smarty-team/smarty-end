@@ -53,31 +53,43 @@ mongo: {
 
 3. 在 /model中添加模型文件后会自动加载对该资源的Restful接口
 
-   例： /model/user.ts
+例： /model/user.ts
 
-   ```
-   export default {
-       schema: {
-           mobile: { type: String, unique: true, required: true },
-           password: { type: String, required: true },
-           realName: { type: String, required: true },
-           avatar: { type: String, default: 'https://1.gravatar.com/avatar/a3e54af3cb6e157e496ae430aed4f4a3?s=96&d=mm' },
-           createdAt: { type: Date, default: Date.now },
-       },
-   }
-   
-   ```
+```
+export default {
+    schema: {
+        mobile: { type: String, unique: true, required: true },
+        password: { type: String, required: true },
+        realName: { type: String, required: true },
+        avatar: { type: String, default: 'https://1.gravatar.com/avatar/a3e54af3cb6e157e496ae430aed4f4a3?s=96&d=mm' },
+        createdAt: { type: Date, default: Date.now },
+    },
+}
 
-   自动对应该资源的Restful接口
+```
 
-   ```
-   GET /api/user/:id'      查询指定id的数据
-   GET '/api/user					获取数据列表
-   POST '/api/user					创建数据
-   PUT '/api/user/:id'			修改数据
-   DELETE '/api/user/:id'  删除数据
-   ```
+自动对应该资源的Restful接口
 
-   
+```
+GET /api/resource/user/:id'      查询指定id的数据
+GET '/api/resource/user					获取数据列表
+POST '/api/resource/user					创建数据
+PUT '/api/resource/user/:id'			修改数据
+DELETE '/api/resource/user/:id'  删除数据
+```
 
-   
+
+
+## API接口列表
+```
+# 模型元数据
+GET /api/metadata 获取模型列表
+GET /api/metadata/user 获取用户模型
+
+# User数据
+GET /api/resource/user/:id'      查询指定id的数据
+GET '/api/resource/user					获取数据列表
+POST '/api/resource/user					创建数据
+PUT '/api/resource/user/:id'			修改数据
+DELETE '/api/resource/user/:id'  删除数据
+```

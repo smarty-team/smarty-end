@@ -1,8 +1,15 @@
 // import { ISequelizeConfig } from "sequelize-typescript"
-interface IConfig {
+export interface IConfig {
     // db?: ISequelizeConfig,
     mysql?: {}
-    mongo?: {}
+    mongo?: {
+        url: string
+        options: {
+            useNewUrlParser?
+            useUnifiedTopology?
+        }
+        forceUpate: boolean
+    }
     option?: {
         restful: boolean
         // 是否强制数据库同步
