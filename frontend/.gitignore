@@ -1,0 +1,8 @@
+dist
+dist-ssr
+node_modules
+
+*.local
+.DS_Store
+yarn.lock
+package-lock.json
