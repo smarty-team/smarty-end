@@ -1,3 +1,3 @@
 import Smarty from './app'
 const app = new Smarty()
-app.listen(3000)
+app.listen(4000)

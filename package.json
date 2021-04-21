@@ -1,0 +1,20 @@
+{
+  "name": "smarty-end",
+  "version": "1.0.0",
+  "description": "- 为全栈工程师定制的中后台框架 - 无代码和少代码化 - 基于 TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node script/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/su37josephxia/smarty-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/su37josephxia/smarty-end/issues"
+  },
+  "homepage": "https://github.com/su37josephxia/smarty-end#readme"
+}
