@@ -7,7 +7,7 @@ async function spawn(...args) {
 }
 
 // 启动npm调试模式
-const backend = spawn("yarn", ["start"], { cwd: `./backend` });
+const backend = spawn("yarn", ["run", "dev"], { cwd: `./backend` });
 const frontend = spawn("yarn", ["run", "dev"], { cwd: `./frontend` });
 
 process.on("exit", () => {

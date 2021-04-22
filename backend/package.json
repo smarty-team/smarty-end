@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./src/lib/index.ts -P tsconfig.json --no-cache",
+    "dev": "ts-node-dev ./src/lib/index.ts -P tsconfig.json --no-cache",
     "build": "tsc -P tsconfig.json",
     "tslint": "tslint --fix -p tsconfig.json",
     "db": "docker-compose up mysql adminer",
@@ -31,10 +31,13 @@
   },
   "dependencies": {
     "@types/jest": "^26.0.22",
+    "chalk": "^4.1.1",
+    "clear": "^0.1.0",
     "commander": "^3.0.1",
     "dotenv": "^8.2.0",
     "download-git-repo": "^2.0.0",
     "express": "^4.17.1",
+    "figlet": "^1.5.0",
     "husky": "^4.2.5",
     "jest": "^26.6.3",
     "koa": "^2.7.0",

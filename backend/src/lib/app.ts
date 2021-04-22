@@ -10,6 +10,11 @@ import * as KoaRouter from 'koa-router'
 import { loadModel, initData } from './utils/mongodb'
 import addHelper from './middleware/helper'
 
+import * as figlet from 'figlet'
+import * as clear from 'clear'
+import * as chalk from 'chalk'
+const log = (content) => console.log(chalk.yellowBright(content))
+
 export default class Smarty {
     app: Koa
     $router: KoaRouter
@@ -63,7 +68,7 @@ export default class Smarty {
         // 加载Mongo
         if (config.mongo) {
             // 加载模块
-            loadModel( this)
+            loadModel(this)
 
             // 初始化数据
             initData(this)
@@ -83,13 +88,21 @@ export default class Smarty {
         this.app.use(this.$router.routes())
     }
 
-    listen(port: number, hostname?: string, listeningListener?: () => void) {
+    listen(port: number, listeningListener?: () => void) {
         this.app.listen(
             port,
-            hostname,
-            listeningListener &&
-                (() => {
-                    console.log('Smarty End Start at 3000')
+            listeningListener ||
+                (async () => {
+                    clear()
+                    log(figlet.textSync('Smarty', {
+                        font: 'Ghost',
+                        horizontalLayout: 'default',
+                        verticalLayout: 'default',
+                        width: 80,
+                        whitespaceBreak: true
+                    }));
+                    log(`===================`)
+                    log(`Smarty End Start at ${port}`)
                 }),
         )
     }
