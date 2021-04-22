@@ -1,9 +1,11 @@
 # Smarty-end
 
-- 为全栈工程师定制的中后台框架
-- 无代码和少代码化
-- 基于 TypeScript
+> Smarty是一款基于JS技术栈的低代码平台！
 
+- 前后端分离架构 
+- Koa2，Typescript，Vite2.0，Vue3.0 , Element3 ,
+- 通过数据模型定制器实现低代码开发
+- 支持多用户多角色权限分配
 ## 目录结构
 
 ```bash
@@ -15,15 +17,6 @@
 ## Install 安装
 
 - [后端 Node](./backend/README.md)
-
-## 开发计划
-
-✅ 装饰器路由（完成）
-✅ 约定 CRUD 接口 （Mysql 版本开发完成，Mongoose 计划中）
-⌚️ 约定 CMS 管理界面 （基于 Element3 + Vite）（计划）
-⌚️ 图形化表单模型定制器（计划）
-✅ CLI 工具（完成）
-⌚️ Jest 单元及 E2E 测试 (计划)
 
 ## 欢迎志同道合的兄弟们一起交流
 
@@ -47,3 +40,11 @@
 - 测试 Jest And Supertest
   测试用例：supertest
   http://www.voidcn.com/article/p-zselcjuo-bnw.html
+
+- Jeecg低代码平台
+  - 在线Demo http://boot.jeecg.com/
+
+- KeyStoreJS
+
+- Mongoose中文文档
+http://mongoosejs.net/docs/queries.html

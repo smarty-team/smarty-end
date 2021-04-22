@@ -88,6 +88,8 @@ GET /api/metadata/user 获取用户模型
 
 # User数据
 GET /api/resource/user/:id'      查询指定id的数据
+GET /api/resource/user?pageNo=2&pageSize=5  
+带翻页的请求
 GET '/api/resource/user					获取数据列表
 POST '/api/resource/user					创建数据
 PUT '/api/resource/user/:id'			修改数据

@@ -4,11 +4,11 @@ export const addRestful = (app) => {
     const { init, get, list, create, update, del } = api
     const router = app.$router
 
-    router.get('/api/resource/:list/:id', init(app), get)
-    router.get('/api/resource/:list', init(app), list)
-    router.post('/api/resource/:list', init(app), create)
-    router.put('/api/resource/:list/:id', init(app), update)
-    router.delete('/api/resource/:list/:id', init(app), del)
+    router.get('/api/resource/:model/:id', init(app), get)
+    router.get('/api/resource/:model', init(app), list)
+    router.post('/api/resource/:model', init(app), create)
+    router.put('/api/resource/:model/:id', init(app), update)
+    router.delete('/api/resource/:model/:id', init(app), del)
 }
 
 export const addModelList = (app) => {
@@ -27,6 +27,7 @@ export const addModelList = (app) => {
     })
     router.get('/api/metadata/:id', (ctx) => {
         const model = require(`${app.rootPath}/model/${ctx.params.id}`).default
+        console.log('model',model)
         ctx.success(model)
     })
 }

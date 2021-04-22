@@ -2,7 +2,7 @@ import * as Koa from 'koa'
 import * as bodify from 'koa-body'
 
 import { load } from './decors'
-import { addRestful, addModelList } from './restful/index'
+import { addRestful, addModelList } from './middleware/restful/index'
 import { resolve } from 'path'
 import { config, IConfig } from '../config/index'
 import * as KoaRouter from 'koa-router'
@@ -94,13 +94,15 @@ export default class Smarty {
             listeningListener ||
                 (async () => {
                     clear()
-                    log(figlet.textSync('Smarty', {
-                        font: 'Ghost',
-                        horizontalLayout: 'default',
-                        verticalLayout: 'default',
-                        width: 80,
-                        whitespaceBreak: true
-                    }));
+                    log(
+                        figlet.textSync('Smarty', {
+                            font: 'Ghost',
+                            horizontalLayout: 'default',
+                            verticalLayout: 'default',
+                            width: 80,
+                            whitespaceBreak: true,
+                        }),
+                    )
                     log(`===================`)
                     log(`Smarty End Start at ${port}`)
                 }),
