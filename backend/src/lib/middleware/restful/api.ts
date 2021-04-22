@@ -32,7 +32,7 @@ export const api = {
             // 对查询结果培训
             // .sort({ 'realName': 'desc' })
             .skip((condition.pageNo - 1) * condition.pageSize)
-            .limit(condition.pageSize)
+            .limit(condition.pageSize - 0)
 
         ctx.success({ list, pagination: { total, pageNo: condition.pageNo - 0, pageSize: condition.pageSize - 0 } })
     },
