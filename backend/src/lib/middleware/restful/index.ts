@@ -19,7 +19,7 @@ export const addModelList = (app) => {
             const model = require(`${app.rootPath}/model/${id}`)
             return {
                 id,
-                name : model.default.name
+                description : model.default.description
             }
         })
 
