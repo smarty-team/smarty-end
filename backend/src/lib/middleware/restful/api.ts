@@ -25,11 +25,13 @@ export const api = {
 
         const total = await ctx.model.find().count()
         const list = await ctx.model
+
             .find() // 增加
+            // .sort({ name: 1})
             .skip((condition.pageNo - 1) * condition.pageSize)
             .limit(condition.pageSize - 0)
 
-        ctx.success({ list, pagination: { total, pageNo: condition.pageNo } })
+        ctx.success({ list, pagination: { total, pageNo: condition.pageNo, pageSize: condition.pageSize } })
     },
 
     async get(ctx) {
