@@ -29,9 +29,7 @@ export const api = {
             .skip((condition.pageNo - 1) * condition.pageSize)
             .limit(condition.pageSize - 0)
 
-        ctx.success({
-            data: { list, pagination: { total, pageNo: condition.pageNo } },
-        })
+        ctx.success({ list, pagination: { total, pageNo: condition.pageNo } })
     },
 
     async get(ctx) {
