@@ -24,14 +24,17 @@ export const api = {
         Object.assign(condition, ctx.query)
 
         const total = await ctx.model.find().count()
+        const sort = {}
+        sort[condition.sortField] = condition.sortOrder
         const list = await ctx.model
-
-            .find() // 增加
-            // .sort({ name: 1})
+            // 1是升序，-1是降序
+            .find({}, null, { sort }) // 增加
+            // 对查询结果培训
+            // .sort({ 'realName': 'desc' })
             .skip((condition.pageNo - 1) * condition.pageSize)
-            .limit(condition.pageSize - 0)
+            .limit(condition.pageSize)
 
-        ctx.success({ list, pagination: { total, pageNo: condition.pageNo, pageSize: condition.pageSize } })
+        ctx.success({ list, pagination: { total, pageNo: condition.pageNo - 0, pageSize: condition.pageSize - 0 } })
     },
 
     async get(ctx) {
