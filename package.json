@@ -4,7 +4,8 @@
   "description": "- 为全栈工程师定制的中后台框架 - 无代码和少代码化 - 基于 TypeScript",
   "main": "index.js",
   "scripts": {
-    "dev": "node script/start.js"
+    "dev": "node script/start.js",
+    "start": "npm run dev"
   },
   "repository": {
     "type": "git",

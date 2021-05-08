@@ -1,6 +1,6 @@
 import path from "path";
 import vue from "@vitejs/plugin-vue";
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import { viteMockServe } from "vite-plugin-mock";
 import vueI18n from "@intlify/vite-plugin-vue-i18n";
 import { defineConfig } from "vite";
@@ -19,10 +19,15 @@ export default defineConfig({
       dirs: path.resolve(__dirname, "src/directives"),
     },
   },
+  server: {
+    proxy: {
+      "/api": "http://localhost:4000"
+    },
+  },
   plugins: [
     vue(),
     vueJsx(),
-    viteMockServe({}),
+    // viteMockServe({ localEnabled: false }),
     vueI18n({
       include: path.resolve(__dirname, "./src/locales/**"),
     }),

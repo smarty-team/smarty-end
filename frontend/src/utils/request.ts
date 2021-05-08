@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Message, Msgbox } from "element3";
-import store from "@/store";
+import store from "../store";
 
 // 创建axios实例
 const service = axios.create({
@@ -44,7 +44,7 @@ service.interceptors.response.use(
     const res = response.data;
 
     // 如果状态码不是20000则认为有错误
-    if (res.code !== 20000) {
+    if (res.code !== 0) {
       Message.error({
         message: res.message || "Error",
         duration: 5 * 1000,
