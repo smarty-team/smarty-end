@@ -40,11 +40,12 @@ export default class Smarty {
             try {
                 await next()
             } catch (err) {
+
                 ctx.body = {
                     code: 500, // 服务端自身的处理逻辑错误(包含框架错误500 及 自定义业务逻辑错误533开始 ) 客户端请求参数导致的错误(4xx开始)，设置不同的状态码
                     error: err.message,
                 }
-                throw err
+                // throw err
             }
         })
 
@@ -67,7 +68,7 @@ export default class Smarty {
         // }
         // 加载Mongo
         if (config.mongo) {
-            // 加载模块
+            // 加载模型
             loadModel(this)
 
             // 初始化数据
