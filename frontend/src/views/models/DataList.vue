@@ -94,7 +94,7 @@ export default defineComponent({
         state.loading = false;
       });
     }
-
+     
     // 获取数据
     state.loading = true;
     getList();
@@ -107,7 +107,7 @@ export default defineComponent({
       status: 'create'
     });
 
-    // 表单
+    // 表单引用
     const dataForm = ref(null)
 
     // 点击创建按钮
@@ -119,7 +119,7 @@ export default defineComponent({
         dataForm.value.clearValidate()
       })
     }
-
+    // 点击更新按钮
     function handleUpdate(row) {
       console.log('handleupdate', row);
       model.temp = Object.assign({}, row) // copy obj
@@ -129,7 +129,7 @@ export default defineComponent({
         dataForm.value.clearValidate()
       })
     }
-
+    // 点击删除按钮
     function handleDelete(row, index) {
       Msgbox
         .confirm('此操作将永久删除该数据, 是否继续?', '提示', {

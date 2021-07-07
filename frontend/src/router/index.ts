@@ -71,6 +71,22 @@ export const routes = [
       },
     ],
   },
+  {
+    path: "/models",
+    name: "modelsMgt",
+    component: Layout,
+    meta: { title: "模型管理" },
+    children: [
+      {
+        path: "list",
+        component: () => import("views/models/ModelList.vue"),
+        meta: {
+          title: "模型列表",
+          icon: "el-icon-document",
+        },
+      },
+    ]
+  }
 ];
 
 const router = createRouter({
